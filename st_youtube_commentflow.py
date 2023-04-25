@@ -32,6 +32,19 @@ if st.sidebar.button('実行'):
 
     message_count = defaultdict(int)
 
+    time_last = df[df['No.']==len(df)-1]['Timestamp'][0]
+    hour_and_minute_last = get_hour_and_minute(time_last)
+    hour = 0
+    minute = 0
+    while True:
+        message_count[(hour, minute)] = 0
+        if hour == hour_and_minute_last[0] and minute == hour_and_minute_last[1]:
+            break
+        minute += 1
+        if minute == 60:
+            minute = 0
+            hour += 1
+
     for idx in range(len(df)):
         timestamp = df[df['No.']==idx]['Timestamp'][0]
         if timestamp[0] == '-':
@@ -53,6 +66,7 @@ if st.sidebar.button('実行'):
 
     fig, ax = plt.subplots()
     ax.bar(hours_and_minutes, counts)
+    ax.xaxis.set_major_locator(plt.MaxNLocator(len(hours_and_minutes)//20+1))
     ax.set_xlabel('Hour:Minute')
     ax.set_ylabel('Message Count')
     ax.set_title('Message Count by Hour and Minute')
