@@ -66,7 +66,7 @@ if st.sidebar.button('実行'):
 
     fig, ax = plt.subplots()
     ax.bar(hours_and_minutes, counts)
-    ax.xaxis.set_major_locator(plt.MaxNLocator(len(hours_and_minutes)//20+1))
+    ax.xaxis.set_major_locator(plt.MaxNLocator(len(hours_and_minutes)//10+1))
     ax.set_xlabel('Hour:Minute')
     ax.set_ylabel('Message Count')
     ax.set_title('Message Count by Hour and Minute')
